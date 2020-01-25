@@ -1,4 +1,3 @@
-import { notifySlack } from "./slack-notify";
 import { getArtifactUrl } from "./get-artifact";
 import { notifyGithubPr } from "./github-notify";
 
@@ -14,7 +13,8 @@ export const moxci = async (targetPath: string, options: Options) => {
     CIRCLE_TOKEN,
     CIRCLE_PROJECT_USERNAME,
     CIRCLE_PROJECT_REPONAME,
-    SLACK_WEBHOOK
+    SLACK_WEBHOOK,
+    CIRCLE_SHA1
   } = process.env;
 
   // Validation
@@ -44,15 +44,13 @@ export const moxci = async (targetPath: string, options: Options) => {
     return;
   }
 
+  if (!CIRCLE_SHA1) {
+    console.error("Cannot find commit SHA");
+    return;
+  }
+
   const circleciApiUrl = `https://circleci.com/api/v1.1/project/github/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BUILD_NUM}/artifacts?circle-token=${CIRCLE_TOKEN}`;
   const artifactUrl = await getArtifactUrl(circleciApiUrl, targetPath);
-
-  // Slack
-  if (SLACK_WEBHOOK) {
-    notifySlack(SLACK_WEBHOOK, artifactUrl);
-  } else {
-    console.log("Slack webhook is not set or invalid");
-  }
 
   // Github
   if (GITHUB_TOKEN) {
@@ -64,10 +62,9 @@ export const moxci = async (targetPath: string, options: Options) => {
     notifyGithubPr({
       owner: CIRCLE_PROJECT_USERNAME,
       repo: CIRCLE_PROJECT_REPONAME,
-      issue_number: pullRequestId,
+      sha: CIRCLE_SHA1,
       token: GITHUB_TOKEN,
-      artifactUrl,
-      body: options.message
+      artifactUrl
     });
   } else {
     console.log("Github Token is not set or invalid");

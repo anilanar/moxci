@@ -3,25 +3,26 @@ import Octokit from "@octokit/rest";
 type Props = {
   owner: string;
   repo: string;
-  issue_number: number;
   token: string;
   artifactUrl: string;
-  body: string;
+  sha: string;
 };
 
 export const notifyGithubPr = async ({
   owner,
   repo,
-  issue_number,
   token,
   artifactUrl,
-  body
+  sha
 }: Props) => {
   const octokit = new Octokit({ auth: `token ${token}` });
-  return octokit.issues.createComment({
+  return octokit.repos.createStatus({
     owner,
     repo,
-    issue_number,
-    body: `${body}:\n${artifactUrl}`
+    sha,
+    target_url: artifactUrl,
+    state: "success",
+    context: "Storybook is ready!",
+    description: "Click details to go to the storybook."
   });
 };
