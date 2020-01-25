@@ -1,6 +1,6 @@
 {
   "name": "@anilanar/moxci",
-  "version": "0.0.3-rc.1",
+  "version": "0.0.3-rc.2",
   "description": "tool to notify circleci build artifacts as a github commit status.",
   "homepage": "https://github.com/anilanar/moxci#readme",
   "repository": "https://github.com/anilanar/moxci.git",
@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn && yarn build",
+    "prepublishOnly": "yarn && yarn build",
     "test": "node src/index.test.ts",
     "type-check": "tsc --noEmit"
   },
