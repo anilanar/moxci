@@ -1,11 +1,14 @@
 {
-  "name": "moxci",
-  "version": "0.1.1",
-  "description": "tool to notify artifact to pr",
-  "homepage": "https://github.com/moxci/moxci#readme",
-  "repository": "https://github.com/moxci/moxci.git",
+  "name": "@anilanar/moxci",
+  "version": "0.0.1",
+  "description": "tool to notify circleci build artifacts as a github commit status.",
+  "homepage": "https://github.com/anilanar/moxci#readme",
+  "repository": "https://github.com/anilanar/moxci.git",
   "license": "MIT",
-  "author": "Jesse Katsumata<jesse.katsumata@gmail.com>",
+  "authors": [
+    "Jesse Katsumata<jesse.katsumata@gmail.com>",
+    "Anil Anar<mail@anilanar.me>"
+  ],
   "files": [
     "bin",
     "lib",

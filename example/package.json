@@ -1,9 +1,6 @@
 {
   "name": "example",
-  "scripts": {
-    "moxci": "moxci artifact/index.html"
-  },
   "devDependencies": {
-    "moxci": "^0.0.1"
+    "@anilanar/moxci": "^0.0.1"
   }
 }

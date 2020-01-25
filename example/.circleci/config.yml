@@ -9,7 +9,7 @@ commands:
           path: artifact
       - run:
           name: "Notify Artifact in PR"
-          command: yarn moxci
+          command: yarn moxci artifact/index.html
 jobs:
   test:
     docker:
@@ -19,7 +19,6 @@ jobs:
       - setup_and_test
 
 workflows:
-  version: 2.1
   test_workflow:
     jobs:
       - test
