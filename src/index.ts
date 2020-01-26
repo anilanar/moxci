@@ -7,13 +7,11 @@ type Options = {
 
 export const moxci = async (targetPath: string, options: Options) => {
   const {
-    CIRCLE_PULL_REQUEST,
     CIRCLE_BUILD_NUM,
     GITHUB_TOKEN,
     CIRCLE_TOKEN,
     CIRCLE_PROJECT_USERNAME,
     CIRCLE_PROJECT_REPONAME,
-    SLACK_WEBHOOK,
     CIRCLE_SHA1
   } = process.env;
 
@@ -26,11 +24,6 @@ export const moxci = async (targetPath: string, options: Options) => {
 
   if (!CIRCLE_PROJECT_REPONAME) {
     console.error("Cannot find project reponame");
-    return;
-  }
-
-  if (!CIRCLE_PULL_REQUEST) {
-    console.error("Cannot find pull request ID");
     return;
   }
 
@@ -54,11 +47,6 @@ export const moxci = async (targetPath: string, options: Options) => {
 
   // Github
   if (GITHUB_TOKEN) {
-    const pullRequestId = Number(CIRCLE_PULL_REQUEST.split("/").pop());
-    if (!pullRequestId) {
-      console.error("Invalid Pull Request Id");
-      return;
-    }
     notifyGithubPr({
       owner: CIRCLE_PROJECT_USERNAME,
       repo: CIRCLE_PROJECT_REPONAME,
