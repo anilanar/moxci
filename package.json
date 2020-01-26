@@ -1,6 +1,6 @@
 {
   "name": "@anilanar/moxci",
-  "version": "0.0.3-rc.2",
+  "version": "0.0.3",
   "description": "tool to notify circleci build artifacts as a github commit status.",
   "homepage": "https://github.com/anilanar/moxci#readme",
   "repository": "https://github.com/anilanar/moxci.git",
