@@ -12,7 +12,8 @@ export const moxci = async (targetPath: string, options: Options) => {
     CIRCLE_TOKEN,
     CIRCLE_PROJECT_USERNAME,
     CIRCLE_PROJECT_REPONAME,
-    CIRCLE_SHA1
+    CIRCLE_SHA1,
+    CIRCLE_JOB
   } = process.env;
 
   // Validation
@@ -52,6 +53,7 @@ export const moxci = async (targetPath: string, options: Options) => {
       repo: CIRCLE_PROJECT_REPONAME,
       sha: CIRCLE_SHA1,
       token: GITHUB_TOKEN,
+      job: CIRCLE_JOB || "#unknown",
       artifactUrl
     });
   } else {

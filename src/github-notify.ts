@@ -5,6 +5,7 @@ type Props = {
   repo: string;
   token: string;
   artifactUrl: string;
+  job: string;
   sha: string;
 };
 
@@ -13,6 +14,7 @@ export const notifyGithubPr = async ({
   repo,
   token,
   artifactUrl,
+  job,
   sha
 }: Props) => {
   const octokit = new Octokit({ auth: `token ${token}` });
@@ -22,7 +24,7 @@ export const notifyGithubPr = async ({
     sha,
     target_url: artifactUrl,
     state: "success",
-    context: "Storybook is ready!",
-    description: "Click details to go to the storybook."
+    context: `${job} artifact is ready!`,
+    description: "Click details to see in the browser."
   });
 };
